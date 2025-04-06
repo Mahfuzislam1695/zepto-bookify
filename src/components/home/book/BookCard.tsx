@@ -67,22 +67,13 @@ export default function BookCard({ book, index = 0 }: BookCardProps) {
                 style={{ animationDelay: getAnimationDelay() }}
             >
                 <div className="relative h-56 w-full overflow-hidden book-cover">
-                    {/* <Image
-                        src={coverImage || "/placeholder.svg"}
-                        alt={`Cover for ${book.title}`}
-                        width={200}
-                        height={300}
-                        fill
-                        className={`object-cover transition-opacity duration-500 ${isLoading ? "opacity-0" : "opacity-100"}`}
-                        onLoad={() => setIsLoading(false)}
-                    /> */}
                     <Image
                         src={coverImage || "/placeholder.svg"}
                         alt={`Cover for ${book.title}`}
                         width={200}
                         height={300}
                         priority // For important above-the-fold images
-                        className={`object-cover transition-opacity duration-500 ${isLoading ? "opacity-0" : "opacity-100"}`}
+                        className={` w-full  h-full rounded-t-lg transition-opacity duration-500 ${isLoading ? "opacity-0" : "opacity-100"}`}
                         onLoad={() => setIsLoading(false)}
                     />
                     {isLoading && (
@@ -127,4 +118,3 @@ export default function BookCard({ book, index = 0 }: BookCardProps) {
         </Link>
     )
 }
-

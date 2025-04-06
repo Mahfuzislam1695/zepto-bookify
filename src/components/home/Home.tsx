@@ -82,7 +82,7 @@ export default function Home() {
 
     return (
 
-        <main className="container mx-auto py-8">
+        <main className="container mx-auto max-w-7xl py-8">
             {/* Header section */}
             <div className="mb-12 max-w-3xl mx-auto text-center">
                 <h1 className="text-3xl md:text-4xl font-serif font-medium text-gray-900 dark:text-white mb-4 animate-fade-in">

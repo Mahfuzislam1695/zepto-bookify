@@ -29,7 +29,7 @@ export default function FilterDropdown({ genres, selectedGenre, onGenreChange }:
 
             {isOpen && (
                 <div className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-900 shadow-lg max-h-60 rounded-md py-1 text-base overflow-auto focus:outline-none sm:text-sm border border-gray-200 dark:border-gray-700 animate-fade-in">
-                    <div className="py-1">
+                    <div className="py-1 ">
                         <button
                             onClick={() => {
                                 onGenreChange("")
