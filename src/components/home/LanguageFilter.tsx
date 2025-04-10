@@ -7,7 +7,6 @@ const LANGUAGES = [
     { code: "en", name: "English" },
     { code: "fr", name: "French" },
     { code: "de", name: "German" },
-    // Add more languages as needed
 ]
 
 interface LanguageFilterProps {
@@ -24,7 +23,7 @@ export default function LanguageFilter({ selectedLanguages, onLanguageChange }: 
         } else {
             onLanguageChange([...selectedLanguages, code])
         }
-        // Close the dropdown after selection
+
         setIsOpen(false)
     }
 
@@ -60,7 +59,7 @@ export default function LanguageFilter({ selectedLanguages, onLanguageChange }: 
                                 <input
                                     type="checkbox"
                                     checked={selectedLanguages.includes(language.code)}
-                                    readOnly // Make it controlled
+                                    readOnly
                                     className="rounded border-gray-300 text-primary focus:ring-primary cursor-pointer"
                                 />
                                 <span className="text-gray-900 dark:text-white">{language.name}</span>

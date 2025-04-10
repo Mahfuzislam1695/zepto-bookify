@@ -4,12 +4,14 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { BookOpen, Heart, Sun, Moon, Menu, X } from "lucide-react"
 import { useState, useEffect } from "react"
+import { useWishlist } from "@/context/WishlistContext"
 
 export default function Navbar() {
     const pathname = usePathname()
     const [isDarkMode, setIsDarkMode] = useState(false)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [scrolled, setScrolled] = useState(false)
+    const { wishlist } = useWishlist()
 
     // Handle dark mode toggle
     useEffect(() => {
@@ -49,12 +51,11 @@ export default function Navbar() {
     }, [])
 
     return (
-        <nav
-            className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm py-3" : "bg-transparent py-5"
-                }`}
-        >
+        <nav className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm py-3" : "bg-transparent py-5"
+            }`}>
             <div className="container mx-auto px-4">
                 <div className="flex justify-between items-center">
+                    {/* Logo remains the same */}
                     <div className="flex items-center">
                         <Link href="/" className="flex items-center group">
                             <BookOpen className="h-6 w-6 text-primary mr-2 transition-transform duration-300 group-hover:scale-105" />
@@ -82,7 +83,11 @@ export default function Navbar() {
                         >
                             <Heart className="h-4 w-4 mr-1.5" />
                             Wishlist
+                            <span className="ml-2 inline-flex items-center justify-center h-5 w-5 rounded-full bg-primary/10 text-primary dark:bg-primary/50 dark:text-primary-foreground text-xs font-medium">
+                                {wishlist.length}
+                            </span>
                         </Link>
+                        {/* Dark mode toggle remains the same */}
                         <button
                             onClick={toggleDarkMode}
                             className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
@@ -115,29 +120,22 @@ export default function Navbar() {
             {/* Mobile menu */}
             {isMenuOpen && (
                 <div className="md:hidden bg-white dark:bg-gray-900 mt-2 animate-fade-in">
-                    <div className="container mx-auto px-4 py-3 space-y-2">
-                        <Link
-                            href="/"
-                            className={`block px-3 py-2 text-sm font-medium rounded-md ${pathname === "/"
-                                ? "text-primary bg-gray-100 dark:bg-gray-800"
-                                : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
-                                }`}
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Home
-                        </Link>
-                        <Link
-                            href="/wishlist"
-                            className={`block px-3 py-2 text-sm font-medium rounded-md flex items-center ${pathname === "/wishlist"
-                                ? "text-primary bg-gray-100 dark:bg-gray-800"
-                                : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
-                                }`}
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            <Heart className="h-4 w-4 mr-2" />
-                            Wishlist
-                        </Link>
-                    </div>
+                    <Link
+                        href="/wishlist"
+                        className={`block px-3 py-2 text-sm font-medium rounded-md flex items-center ${pathname === "/wishlist"
+                            ? "text-primary bg-gray-100 dark:bg-gray-800"
+                            : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                            }`}
+                        onClick={() => setIsMenuOpen(false)}
+                    >
+                        <Heart className="h-4 w-4 mr-2" />
+                        Wishlist
+                        {wishlist.length > 0 && (
+                            <span className="ml-auto inline-flex items-center justify-center h-5 w-5 rounded-full bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-foreground text-xs font-medium">
+                                {wishlist.length}
+                            </span>
+                        )}
+                    </Link>
                 </div>
             )}
         </nav>

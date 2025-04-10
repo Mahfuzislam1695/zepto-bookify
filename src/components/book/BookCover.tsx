@@ -4,14 +4,14 @@ import Image from "next/image"
 import { useState } from "react"
 import { Heart } from 'lucide-react'
 import type { Book } from "@/types"
-import { useWishlist } from "@/hooks/useWishlist"
 
 interface BookCoverProps {
     book: Book
+    isInWishlist: boolean
+    onWishlistToggle: () => void
 }
 
-export default function BookCover({ book }: BookCoverProps) {
-    const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist()
+export default function BookCover({ book, isInWishlist, onWishlistToggle }: BookCoverProps) {
     const [imageLoaded, setImageLoaded] = useState(false)
 
     // Get cover image URL from formats
@@ -25,14 +25,6 @@ export default function BookCover({ book }: BookCoverProps) {
         }
 
         return "/placeholder.svg?height=600&width=400"
-    }
-
-    const handleWishlistToggle = () => {
-        if (isInWishlist(book.id)) {
-            removeFromWishlist(book.id)
-        } else {
-            addToWishlist(book)
-        }
     }
 
     return (
@@ -54,14 +46,17 @@ export default function BookCover({ book }: BookCoverProps) {
 
             <div className="mt-6 space-y-4">
                 <button
-                    onClick={handleWishlistToggle}
-                    className={`w-full inline-flex items-center justify-center px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-md text-sm font-medium transition-colors duration-200 ${isInWishlist(book.id)
+                    onClick={(e) => {
+                        e.preventDefault()
+                        onWishlistToggle()
+                    }}
+                    className={`w-full inline-flex items-center justify-center px-4 py-2 border rounded-md text-sm font-medium transition-colors duration-200 ${isInWishlist
                         ? "bg-primary text-white hover:bg-primary/90 border-primary"
-                        : "bg-white text-gray-700 hover:bg-gray-50 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800"
+                        : "bg-white text-gray-700 hover:bg-gray-50 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800 border-gray-200 dark:border-gray-700"
                         }`}
                 >
-                    <Heart className={`h-4 w-4 mr-2 ${isInWishlist(book.id) ? "fill-current" : ""}`} />
-                    {isInWishlist(book.id) ? "Remove from Wishlist" : "Add to Wishlist"}
+                    <Heart className={`h-4 w-4 mr-2 ${isInWishlist ? "fill-red-700" : ""}`} />
+                    {isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
                 </button>
             </div>
         </div>

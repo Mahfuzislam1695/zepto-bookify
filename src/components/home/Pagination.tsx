@@ -63,11 +63,11 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
 
     return (
         <div className="flex items-center justify-center mt-10">
-            <div className="flex items-center border border-gray-200 dark:border-gray-700 rounded-md divide-x divide-gray-200 dark:divide-gray-700 overflow-hidden">
+            <div className="flex items-center border border-gray-200 dark:border-gray-700 rounded-md divide-x divide-gray-200 dark:divide-gray-700 overflow-hidden bg-white dark:bg-gray-900">
                 <button
                     onClick={() => onPageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="p-2 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                    className="p-2 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
                     aria-label="Previous page"
                 >
                     <ChevronLeft className="h-4 w-4" />
@@ -79,15 +79,15 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
                             <button
                                 key={index}
                                 onClick={() => onPageChange(page)}
-                                className={`px-3 py-1.5 min-w-[2.5rem] text-sm font-medium transition-colors duration-200 ${currentPage === page
-                                    ? "bg-primary text-white"
+                                className={`px-3 py-1.5 min-w-[2.5rem] text-sm font-medium transition-colors duration-200 cursor-pointer ${currentPage === page
+                                    ? "bg-gray-800 text-white"
                                     : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                                     }`}
                             >
                                 {page}
                             </button>
                         ) : (
-                            <span key={index} className="px-3 py-1.5 text-sm text-gray-500 flex items-center justify-center">
+                            <span key={index} className="px-3 py-1.5 text-sm text-gray-500 dark:text-gray-400 flex items-center justify-center">
                                 {page}
                             </span>
                         ),
@@ -97,7 +97,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
                 <button
                     onClick={() => onPageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="p-2 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                    className="p-2 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
                     aria-label="Next page"
                 >
                     <ChevronRight className="h-4 w-4" />
@@ -106,4 +106,3 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         </div>
     )
 }
-

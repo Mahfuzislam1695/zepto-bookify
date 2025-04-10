@@ -1,13 +1,22 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import type { Book } from "@/types"
 
-export const useWishlist = () => {
+type WishlistContextType = {
+    wishlist: Book[]
+    isInWishlist: (bookId: number) => boolean
+    addToWishlist: (book: Book) => void
+    removeFromWishlist: (bookId: number) => void
+    isLoaded: boolean
+}
+
+const WishlistContext = createContext<WishlistContextType | undefined>(undefined)
+
+export function WishlistProvider({ children }: { children: React.ReactNode }) {
     const [wishlist, setWishlist] = useState<Book[]>([])
     const [isLoaded, setIsLoaded] = useState(false)
 
-    // Load wishlist from localStorage on mount
     useEffect(() => {
         const savedWishlist = localStorage.getItem("wishlist")
         if (savedWishlist) {
@@ -20,7 +29,6 @@ export const useWishlist = () => {
         setIsLoaded(true)
     }, [])
 
-    // Save to localStorage whenever wishlist changes
     useEffect(() => {
         if (isLoaded) {
             localStorage.setItem("wishlist", JSON.stringify(wishlist))
@@ -39,11 +47,25 @@ export const useWishlist = () => {
         setWishlist(prev => prev.filter(book => book.id !== bookId))
     }
 
-    return {
-        wishlist,
-        isInWishlist,
-        addToWishlist,
-        removeFromWishlist,
-        isLoaded
+    return (
+        <WishlistContext.Provider
+            value={{
+                wishlist,
+                isInWishlist,
+                addToWishlist,
+                removeFromWishlist,
+                isLoaded
+            }}
+        >
+            {children}
+        </WishlistContext.Provider>
+    )
+}
+
+export function useWishlist() {
+    const context = useContext(WishlistContext)
+    if (context === undefined) {
+        throw new Error("useWishlist must be used within a WishlistProvider")
     }
+    return context
 }

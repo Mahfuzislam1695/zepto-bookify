@@ -4,7 +4,7 @@ export default function Loader() {
     return (
         <div className="flex items-center justify-center h-screen w-screen">
             {/* <Image
-        src="images/logo/Light_Logo.png"
+        src="images/logo.png"
         alt="PostStack"
         width={150}
         height={50}

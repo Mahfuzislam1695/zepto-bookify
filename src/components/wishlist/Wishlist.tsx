@@ -1,27 +1,26 @@
 "use client"
 
-import { useWishlist } from "@/hooks/useWishlist";
-import { ArrowLeft, Heart } from "lucide-react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import BookGrid from "../home/book/BookGrid";
-import EmptyState from "../home/book/EmptyState";
-
+import { useWishlist } from "@/context/WishlistContext"
+import { ArrowLeft, Heart } from "lucide-react"
+import Link from "next/link"
+import BookGrid from "@/components/home/book/BookGrid"
+import EmptyState from "@/components/home/book/EmptyState"
 
 const Wishlist = () => {
-    const { wishlist } = useWishlist()
-    const [mounted, setMounted] = useState(false)
+    const { wishlist, isLoaded } = useWishlist()
 
-    // Prevent hydration mismatch
-    useEffect(() => {
-        setMounted(true)
-    }, [])
-
-    if (!mounted) {
-        return null
+    if (!isLoaded) {
+        return (
+            <main className="container mx-auto max-w-7xl py-8 px-4 sm:px-6">
+                <div className="h-64 flex items-center justify-center">
+                    <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+                </div>
+            </main>
+        )
     }
+
     return (
-        <main className="container mx-auto py-8">
+        <main className="container mx-auto max-w-7xl py-8 px-4 sm:px-6">
             <div className="mb-8">
                 <Link
                     href="/"
@@ -31,7 +30,9 @@ const Wishlist = () => {
                     Back to Books
                 </Link>
 
-                <h1 className="text-3xl font-serif font-medium text-gray-900 dark:text-white mt-4 mb-2">Your Wishlist</h1>
+                <h1 className="text-3xl font-serif font-medium text-gray-900 dark:text-white mt-4 mb-2">
+                    Your Wishlist
+                </h1>
                 <p className="text-gray-600 dark:text-gray-400 mb-8">
                     {wishlist.length > 0
                         ? `You have ${wishlist.length} book${wishlist.length > 1 ? "s" : ""} saved to your wishlist.`
@@ -51,7 +52,7 @@ const Wishlist = () => {
                 />
             )}
         </main>
-    );
-};
+    )
+}
 
 export default Wishlist;
