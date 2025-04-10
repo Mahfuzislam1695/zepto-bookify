@@ -58,7 +58,7 @@ export default function Navbar() {
                     <div className="flex items-center">
                         <Link href="/" className="flex items-center group">
                             <BookOpen className="h-6 w-6 text-primary mr-2 transition-transform duration-300 group-hover:scale-105" />
-                            <span className="text-xl font-sans font-medium text-primary">Gutendex</span>
+                            <span className="text-xl font-sans font-medium text-primary">ZeptoBookify</span>
                         </Link>
                     </div>
 

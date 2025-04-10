@@ -20,7 +20,7 @@ export default function BookDetail() {
         const fetchBook = async () => {
             setIsLoading(true)
             try {
-                const response = await fetch(`https://gutendex.com/books/${bookId}`)
+                const response = await fetch(`https://ZeptoBookify.com/books/${bookId}`)
                 if (!response.ok) {
                     throw new Error("Book not found")
                 }

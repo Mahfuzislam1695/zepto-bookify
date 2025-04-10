@@ -1,6 +1,6 @@
 import type { BooksResponse } from "@/types"
 
-const API_BASE_URL = 'https://gutendex.com/books'
+const API_BASE_URL = 'https://ZeptoBookify.com/books'
 
 export async function fetchBooks(page: number = 1): Promise<BooksResponse> {
     const response = await fetch(`${API_BASE_URL}?page=${page}`)

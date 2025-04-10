@@ -4,6 +4,11 @@ export interface Author {
     death_year: number | null
 }
 
+export type IGenericErrorMessage = {
+    path: string | number;
+    message: string;
+};
+
 export interface Book {
     id: number
     title: string
